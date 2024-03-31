@@ -110,12 +110,13 @@
         var PVS = parseFloat(document.getElementById('PVS').value);
         
         var ePAWP = (0.179 * LAVi) + (2.672 * (MVE / PVS)) + 2.7;
+        ePAWP = ePAWP.toFixed(0);
         var resultElement = document.getElementById('result');
         
         if (ePAWP > 15) {
-            resultElement.innerHTML = "Estimated PA Wedge Pressure (ePAWP): <span class='abnormal'>" + ePAWP.toFixed(0) + " mmHg</span>";
+            resultElement.innerHTML = "Estimated PA Wedge Pressure (ePAWP): <span class='abnormal'>" + ePAWP + " mmHg</span>";
         } else {
-            resultElement.innerText = "Estimated PA Wedge Pressure (ePAWP): " + ePAWP.toFixed(0) + " mmHg";
+            resultElement.innerText = "Estimated PA Wedge Pressure (ePAWP): " + ePAWP + " mmHg";
         }
     }
     </script>
