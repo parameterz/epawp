@@ -110,7 +110,7 @@
         var PVS = parseFloat(document.getElementById('PVS').value);
         
         var ePAWP = (0.179 * LAVi) + (2.672 * (MVE / PVS)) + 2.7;
-        ePAWP = ePAWP.toFixed(0);
+        ePAWP = Math.round(ePAWP); //we should use integers for pressure
         var resultElement = document.getElementById('result');
         
         if (ePAWP > 15) {
