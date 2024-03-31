@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ePAWP Calculator</title>
+<title>estimated Pulmonary Artery Wedge Pressure Calculator</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -18,6 +18,17 @@
         border: 1px solid #ccc;
         border-radius: 5px;
         background-color: #f9f9f9;
+    }
+    .citation {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .citation a {
+        color: #007bff;
+        text-decoration: none;
     }
     label {
         font-weight: bold;
@@ -49,31 +60,48 @@
         font-size: 18px;
         font-weight: bold;
     }
-</style>
+    .abnormal {
+        color: #d9534f;
+        background-color: #f2dede;
+        border: 1px solid #ebccd1;
+        padding: 10px;
+        border-radius: 5px;
+    }</style>
 </head>
 <body>
 <div class="container">
     <h2>ePAWP Calculator</h2>
     <label for="LAVi">Left Atrial Volume Index (LAVi) (ml/m²):</label>
     <input type="number" id="LAVi" step="0.01" required>
-    <label for="MVE">Mitral Valve E Velocity (MVE) (cm/s):</label>
+    <label for="MVE">Mitral Valve E Velocity (cm/s):</label>
     <input type="number" id="MVE" step="0.01" required>
-    <label for="PVS">Pulmonary Vein S Velocity (PVS) (cm/s):</label>
+    <label for="PVS">Pulmonary Vein S Velocity (cm/s):</label>
     <input type="number" id="PVS" step="0.01" required>
     <button onclick="calculate()">Calculate ePAWP</button>
     <div id="result"></div>
+    <div>
+        <p class="citation">Citation: Thomas Lindow, Aristomenis Manouras, Per Lindqvist, Daniel Manna, Björn Wieslander, Rebecca Kozor, Geoff Strange, David Playford, Martin Ugander, Echocardiographic estimation of pulmonary artery wedge pressure: invasive derivation, validation, and prognostic association beyond diastolic dysfunction grading, European Heart Journal - Cardiovascular Imaging, Volume 25, Issue 4, April 2024, Pages 498–509, <a href="https://doi.org/10.1093/ehjci/jead301" target="_blank">https://doi.org/10.1093/ehjci/jead301</a></p>
+
+    </div>
 </div>
 
 <script>
-function calculate() {
-    var LAVi = parseFloat(document.getElementById('LAVi').value);
-    var MVE = parseFloat(document.getElementById('MVE').value);
-    var PVS = parseFloat(document.getElementById('PVS').value);
-    
-    var ePAWP = (0.179 * LAVi) + (2.672 * (MVE / PVS)) + 2.7;
-    
-    document.getElementById('result').innerText = "Estimated PA Wedges Pressure (ePAWP): " + ePAWP.toFixed(2) + " mmHg";
-}
-</script>
+    function calculate() {
+        var LAVi = parseFloat(document.getElementById('LAVi').value);
+        var MVE = parseFloat(document.getElementById('MVE').value);
+        var PVS = parseFloat(document.getElementById('PVS').value);
+        
+        var ePAWP = (0.179 * LAVi) + (2.672 * (MVE / PVS)) + 2.7;
+        var resultElement = document.getElementById('result');
+        
+        if (ePAWP > 15) {
+            resultElement.innerHTML = "Estimated PA Wedge Pressure (ePAWP): <span class='abnormal'>" + ePAWP.toFixed(2) + " mmHg</span>";
+        } else {
+            resultElement.innerText = "Estimated PA Wedge Pressure (ePAWP): " + ePAWP.toFixed(2) + " mmHg";
+        }
+    }
+    </script>
+    <footer>
+    </footer>
 </body>
 </html>
