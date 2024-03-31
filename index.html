@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ePAWP Calculator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    label {
+        font-weight: bold;
+    }
+    input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 3px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    #result {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>ePAWP Calculator</h2>
+    <label for="LAVi">Left Atrial Volume Index (LAVi) (ml/m²):</label>
+    <input type="number" id="LAVi" step="0.01" required>
+    <label for="MVE">Mitral Valve E Velocity (MVE) (cm/s):</label>
+    <input type="number" id="MVE" step="0.01" required>
+    <label for="PVS">Pulmonary Vein S Velocity (PVS) (cm/s):</label>
+    <input type="number" id="PVS" step="0.01" required>
+    <button onclick="calculate()">Calculate ePAWP</button>
+    <div id="result"></div>
+</div>
+
+<script>
+function calculate() {
+    var LAVi = parseFloat(document.getElementById('LAVi').value);
+    var MVE = parseFloat(document.getElementById('MVE').value);
+    var PVS = parseFloat(document.getElementById('PVS').value);
+    
+    var ePAWP = (0.179 * LAVi) + (2.672 * (MVE / PVS)) + 2.7;
+    
+    document.getElementById('result').innerText = "Estimated PA Wedges Pressure (ePAWP): " + ePAWP.toFixed(2) + " mmHg";
+}
+</script>
+</body>
+</html>
