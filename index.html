@@ -61,12 +61,30 @@
         font-weight: bold;
     }
     .abnormal {
-        color: #d9534f;
+        color: #530808;
         background-color: #f2dede;
         border: 1px solid #ebccd1;
-        padding: 10px;
+        padding: 5px;
         border-radius: 5px;
-    }</style>
+    }
+    @media only screen and (max-width: 600px) {
+        input[type="number"] {
+            padding: 8px;
+            font-size: 14px;
+        }
+        button {
+            padding: 12px;
+            font-size: 14px;
+        }
+        .abnormal {
+            padding: 8px;
+        }
+        #result {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }    </style>
 </head>
 <body>
 <div class="container">
@@ -95,9 +113,9 @@
         var resultElement = document.getElementById('result');
         
         if (ePAWP > 15) {
-            resultElement.innerHTML = "Estimated PA Wedge Pressure (ePAWP): <span class='abnormal'>" + ePAWP.toFixed(2) + " mmHg</span>";
+            resultElement.innerHTML = "Estimated PA Wedge Pressure (ePAWP): <span class='abnormal'>" + ePAWP.toFixed(0) + " mmHg</span>";
         } else {
-            resultElement.innerText = "Estimated PA Wedge Pressure (ePAWP): " + ePAWP.toFixed(2) + " mmHg";
+            resultElement.innerText = "Estimated PA Wedge Pressure (ePAWP): " + ePAWP.toFixed(0) + " mmHg";
         }
     }
     </script>
