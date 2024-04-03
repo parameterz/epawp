@@ -97,6 +97,8 @@
     <input type="number" id="MVE" step="0.01" required>
     <label for="PVS">Pulmonary Vein S Velocity (cm/s):</label>
     <input type="number" id="PVS" step="0.01" required>
+    <label for="toggle">Exclude Pulmonary Vein S Velocity:</label>
+    <input type="checkbox" id="toggle" >
     <button onclick="calculate()">Calculate ePAWP</button>
     <div id="result"></div>
     <div>
@@ -110,8 +112,15 @@
         var LAVi = parseFloat(document.getElementById('LAVi').value);
         var MVE = parseFloat(document.getElementById('MVE').value);
         var PVS = parseFloat(document.getElementById('PVS').value);
+        var excludePVS = document.getElementById('toggle').checked;
         
-        var ePAWP = (0.179 * LAVi) + (2.672 * (MVE / PVS)) + 2.7;
+        if (excludePVS) {
+            // Use alternate equation without PVS
+            ePAWP = (0.230 * LAVi) + (0.102 * MVE) - 2.7;  //0.230 × LAVi + 0.102 × mitral E − 2.7
+        } else {
+            // Use original equation with PVS
+            ePAWP = (0.179 * LAVi) + (2.672 * (MVE / PVS)) + 2.7;
+        }
         ePAWP = Math.round(ePAWP); //we should use integers for pressure
         var resultElement = document.getElementById('result');
         
@@ -121,6 +130,11 @@
             resultElement.innerText = "Estimated PA Wedge Pressure (ePAWP): " + ePAWP + " mmHg";
         }
     }
+    document.getElementById('toggle').addEventListener('change', function() {
+        if (document.getElementById('LAVi').value && document.getElementById('MVE').value && document.getElementById('PVS').value) {
+            calculate();
+        }
+    });
     </script>
     <footer>
     </footer>
